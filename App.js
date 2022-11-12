@@ -7,90 +7,51 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {Text, View, Dimensions} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+/**
+ * 1 在rn中默认容器 布局方式 都是flex
+ * 2 方向 flex-direction:column;
+ * 3 在rn中样式 没有继承
+ * 4 单位
+ *    1 不用加px
+ *    2 不用vw vh
+ *    3 可以加 百分比 “50%”
+ * 5 Dimensions
+ * 6 变换
+ *
+ *
+ */
+const App = () => (
+  <View
+    style={{
+      backgroundColor: 'aqua',
+      flexDirection: 'row',
+      width: '50%',
+      height: '50%',
+    }}>
+    <Text style={{color: 'red', fontSize: 50}}>JSX</Text>
+    <Text>JSX2</Text>
+    <View
+      style={{
+        width: windowWidth / 2,
+        height: windowHeight / 2,
+        backgroundColor: 'yellow',
+      }}>
+      <Text>屏幕宽度和高度的一半</Text>
+    </View>
+    {/* 变换 */}
+    <View>
       <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
+        style={{
+          backgroundColor: 'green',
+          transform: [{translateY: 200}, {scale: 2}],
+        }}>
+        JSX3
       </Text>
     </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <Text>hello</Text>
-      <Icon name="rocket" size={30} color="green" />
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
+  </View>
+);
 export default App;
